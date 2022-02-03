@@ -31,7 +31,6 @@ export const HomeState = (props) => {
         profile_pic: "",
     }
 
-    const [nav, setNav] = useState(true)
     const [profileValues, setProfileValues] = useState(initialProfileValues)
     const [profileStage, setProfileStage] = useState(0)
 
@@ -115,8 +114,6 @@ export const HomeState = (props) => {
     }, [db, user.uid])
 
     const value = {
-        nav,
-        setNav,
         profileValues,
         setProfileValues,
         profileStage,

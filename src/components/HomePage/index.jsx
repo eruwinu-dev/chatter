@@ -5,30 +5,34 @@ import AuthContext from "../../context/authContext"
 import HomeContext from "../../context/homeContext"
 
 import LoadingScreen from "./LoadingScreen"
+import CreateProfile from "./CreateProfile"
+
+import Conversations from "./Conversations"
+
+import { ChatState } from "../../context/chatContext"
 
 const HomePage = () => {
-    const { user, firebaseSignOut } = useContext(AuthContext)
+    const { user } = useContext(AuthContext)
     const { loading, firstTime } = useContext(HomeContext)
     if (!user) {
         return <Navigate to="/" />
     }
 
-    if (loading) {
-        return <LoadingScreen />
-    }
-
     if (firstTime) {
-        return <div>First Time</div>
+        if (loading) {
+            return <LoadingScreen />
+        }
+        return <CreateProfile />
+    } else {
+        if (loading) {
+            return <LoadingScreen />
+        }
+        return (
+            <ChatState>
+                <Conversations />
+            </ChatState>
+        )
     }
-
-    return (
-        <div>
-            Hello
-            <button type="button" onClick={() => firebaseSignOut()}>
-                Sign Out
-            </button>
-        </div>
-    )
 }
 
 export default HomePage
